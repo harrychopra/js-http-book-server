@@ -1,10 +1,11 @@
 {
   "name": "js-http-book-server",
   "version": "1.0.0",
+  "type": "module",
   "scripts": {
     "test": "jest",
-    "migrate-up": "docker exec -it pg14 psql -U root < ./db/setup-dbs.sql",
-    "migrate-down": "node ./db/seed/run-seed.js"
+    "migrate-up": "node ./db/db.js",
+    "migrate-down": ""
   },
   "keywords": [],
   "author": "",
