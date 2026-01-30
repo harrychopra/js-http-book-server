@@ -1,0 +1,23 @@
+{
+  "name": "js-http-book-server",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "jest",
+    "migrate-up": "docker exec -it pg14 psql -U root < ./db/setup-dbs.sql",
+    "migrate-down": "node ./db/seed/run-seed.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "node-postgres": "^0.6.2",
+    "pg": "^8.13.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.11"
+  }
+}
