@@ -4,8 +4,10 @@
   "type": "module",
   "scripts": {
     "test": "jest",
-    "migrate-up": "node ./db/db.js",
-    "migrate-down": ""
+    "create-db": "docker exec -it pg14 psql -c 'create database book_server;'",
+    "drop-db": "docker exec -it pg14 psql -c 'drop database book_server;'",
+    "migrate-up": "docker exec -i pg14 psql < ./db/migrations/up.sql",
+    "migrate-down": "docker exec -i pg14 psql < ./db/migrations/down.sql"
   },
   "keywords": [],
   "author": "",
