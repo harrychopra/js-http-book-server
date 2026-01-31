@@ -1,6 +1,6 @@
 import http from 'http';
 import db from './db/db.js';
-import { string } from 'pg-format';
+import format from 'pg-format';
 
 const HOST = 'localhost';
 const PORT = 8080;
@@ -98,6 +98,47 @@ const server = http.createServer(async (req, res) => {
       res.write(stringify(data));
     }
     res.end();
+  }
+
+  // ***************************************************************************
+  // POST /api/books
+  // ***************************************************************************
+
+  if (method === 'POST' && path === '/api/books') {
+    let bodyStr = '';
+
+    req.on('data', data => (bodyStr += data));
+    req.on('end', async () => {
+      try {
+        const { title, author_id, is_fiction } = JSON.parse(bodyStr);
+
+        const query = format(
+          `--sql
+            insert into books (title, author_id, is_fiction)
+                values (%L, %L, %L) returning *`,
+          title,
+          author_id,
+          is_fiction,
+        );
+        const result = await db.query(query);
+
+        res.setHeader('content-type', 'application/json');
+
+        if (result.rowCount !== 1 || result.rows.length === 0) {
+          throw new Error(`unexpected problem inserting book`);
+        }
+
+        const json = stringify({ book: rows[0] });
+
+        res.statusCode = 201;
+        res.write(json);
+      } catch (err) {
+        res.statusCode = 500;
+        const data = { error: err.message };
+        res.write(stringify(data));
+      }
+      res.end();
+    });
   }
 });
 
