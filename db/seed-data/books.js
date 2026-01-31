@@ -1,0 +1,92 @@
+export default [
+  {
+    id: 1,
+    title: "The Hitchhiker's Guide to the Galaxy",
+    author_id: 3,
+    is_fiction: true,
+  },
+  {
+    id: 2,
+    title: 'The Little Prince',
+    author_id: 2,
+    is_fiction: true,
+  },
+  {
+    id: 3,
+    title: 'The Tale of Peter Rabbit',
+    author_id: 7,
+    is_fiction: true,
+  },
+  {
+    id: 4,
+    title: 'Emma',
+    author_id: 14,
+    is_fiction: true,
+  },
+  {
+    id: 5,
+    title: 'Nineteen Eighty-Four: A Novel',
+    author_id: 13,
+    is_fiction: true,
+  },
+  {
+    id: 6,
+    title: "The Handmaid's Tale",
+    author_id: 15,
+    is_fiction: true,
+  },
+  {
+    id: 7,
+    title: 'The War of the Worlds',
+    author_id: 12,
+    is_fiction: true,
+  },
+  {
+    id: 8,
+    title: "Captain Corelli's Mandolin",
+    author_id: 11,
+    is_fiction: true,
+  },
+  {
+    id: 9,
+    title: 'Dune',
+    author_id: 10,
+    is_fiction: true,
+  },
+  {
+    id: 10,
+    title: 'Charlie and the Chocolate Factory',
+    author_id: 9,
+    is_fiction: true,
+  },
+  {
+    id: 11,
+    title: 'The Lion, the and the Wardrobe',
+    author_id: 8,
+    is_fiction: true,
+  },
+  {
+    id: 12,
+    title: 'The Very Hungry Caterpillar',
+    author_id: 5,
+    is_fiction: true,
+  },
+  {
+    id: 13,
+    title: 'The Catcher in the Rye',
+    author_id: 6,
+    is_fiction: true,
+  },
+  {
+    id: 14,
+    title: 'A Brief History of Time',
+    author_id: 4,
+    is_fiction: false,
+  },
+  {
+    id: 15,
+    title: 'The Da Vinci Code',
+    author_id: 1,
+    is_fiction: true,
+  },
+];
