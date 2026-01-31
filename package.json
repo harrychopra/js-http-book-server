@@ -8,7 +8,8 @@
     "create-db": "docker exec -it pg14 psql -c 'create database book_server;'",
     "drop-db": "docker exec -it pg14 psql -c 'drop database book_server;'",
     "migrate-up": "docker exec -i pg14 psql -d book_server < ./db/migrations/up.sql",
-    "migrate-down": "docker exec -i pg14 psql -d book_server < ./db/migrations/down.sql"
+    "migrate-down": "docker exec -i pg14 psql -d book_server < ./db/migrations/down.sql",
+    "watch": "nodemon ./server.js"
   },
   "keywords": [],
   "author": "",
