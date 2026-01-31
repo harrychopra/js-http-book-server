@@ -46,6 +46,25 @@ const server = http.createServer(async (req, res) => {
     }
     res.end();
   }
+
+  // ***************************************************************************
+  // GET /api/authors
+  // ***************************************************************************
+
+  if (method === 'GET' && path === '/api/authors') {
+    try {
+      const { rows: authors } = await db.query(`select * from authors;`);
+      const json = stringify({ authors });
+      res.setHeader('content-type', 'application/json');
+      res.statusCode = 200;
+      res.write(json);
+    } catch (err) {
+      res.statusCode = 500;
+      const data = { error: err.message };
+      res.write(stringify(data));
+    }
+    res.end();
+  }
 });
 
 server.listen(PORT, err => {
