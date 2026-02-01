@@ -9,6 +9,7 @@
     "drop-db": "docker exec -it pg14 psql -c 'drop database book_server;'",
     "migrate-up": "docker exec -i pg14 psql -d book_server < ./db/migrations/up.sql",
     "migrate-down": "docker exec -i pg14 psql -d book_server < ./db/migrations/down.sql",
+    "seed": "node ./db/seed.js",
     "watch": "nodemon ./server.js"
   },
   "keywords": [],

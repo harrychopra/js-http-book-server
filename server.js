@@ -128,7 +128,7 @@ const server = http.createServer(async (req, res) => {
           throw new Error(`unexpected problem inserting book`);
         }
 
-        const json = stringify({ book: rows[0] });
+        const json = stringify({ book: result.rows[0] });
 
         res.statusCode = 201;
         res.write(json);
