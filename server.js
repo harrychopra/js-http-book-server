@@ -73,7 +73,7 @@ const server = http.createServer(async (req, res) => {
   const reGetBooksById = /^\/api\/books\/(\d+)$/;
   const matchGetBooksById = path.match(reGetBooksById);
 
-  if (method === 'GET' && matchGetBooksById.length === 2) {
+  if (method === 'GET' && matchGetBooksById && matchGetBooksById.length === 2) {
     const bookId = matchGetBooksById[1];
 
     try {
@@ -85,7 +85,7 @@ const server = http.createServer(async (req, res) => {
       let json;
       if (rows.length === 0) {
         res.statusCode = 404;
-        json = stringify({ message: 'not found' });
+        json = stringify({ message: 'book not found' });
       } else {
         res.statusCode = 200;
         json = stringify({ book: rows[0] });
@@ -139,6 +139,45 @@ const server = http.createServer(async (req, res) => {
       }
       res.end();
     });
+  }
+  // ***************************************************************************
+  // GET /api/books/:bookId/author
+  // ***************************************************************************
+  //
+
+  const reAuthorByBookId = /^\/api\/books\/(\d+)\/author$/;
+  const matchAuthorByBookId = path.match(reAuthorByBookId);
+
+  if (
+    method === 'GET' &&
+    matchAuthorByBookId &&
+    matchAuthorByBookId.length === 2
+  ) {
+    const bookId = matchAuthorByBookId[1];
+
+    try {
+      const { rows } = await db.query(`--sql
+        select * from authors as a join books as b on a.id = b.author_id
+            where b.id = ${bookId};`);
+
+      res.setHeader('content-type', 'application/json');
+
+      let json;
+      if (rows.length === 0) {
+        res.statusCode = 404;
+        json = stringify({ message: 'author not found' });
+      } else {
+        res.statusCode = 200;
+        json = stringify({ author: rows[0] });
+      }
+
+      res.write(json);
+    } catch (err) {
+      res.statusCode = 500;
+      const data = { error: err.message };
+      res.write(stringify(data));
+    }
+    res.end();
   }
 });
 
