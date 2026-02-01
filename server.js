@@ -179,6 +179,43 @@ const server = http.createServer(async (req, res) => {
     }
     res.end();
   }
+
+  // ***************************************************************************
+  // /api/books?fiction=false
+  // ***************************************************************************
+
+  if (method === 'GET' && path.startsWith('/api/books?')) {
+    try {
+      const params = new URL(`${HOST}:${PORT}${path}`).searchParams;
+      const value = params.get('isFiction');
+
+      res.setHeader('content-type', 'application/json');
+
+      let query;
+
+      if (value === 'true') {
+        query = `select * from books where is_fiction`;
+      } else if (value === 'false') {
+        query = `select * from books where not is_fiction`;
+      } else {
+        res.statusCode = 404;
+        const json = stringify({ message: 'query parameters not recognized' });
+        res.write(json);
+        res.end();
+      }
+
+      const { rows: books } = await db.query(query);
+      const json = stringify({ books });
+
+      res.statusCode = 200;
+      res.write(json);
+    } catch (err) {
+      res.statusCode = 500;
+      const data = { error: err.message };
+      res.write(stringify(data));
+    }
+    res.end();
+  }
 });
 
 server.listen(PORT, err => {
